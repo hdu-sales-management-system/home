@@ -6,9 +6,7 @@
 
 + [react](https://react.docschina.org/) (全家桶: [router](https://reacttraining.com/react-router/) [redux](https://redux.js.org/))
 + [antd](https://ant.design/docs/react/introduce-cn)
-+ [react-native(For App)](https://reactnative.cn/)
-+ [Electron(For 桌面)](https://electronjs.org/)
-
++ [bootstrap-react](https://react-bootstrap.github.io/)
 ### 后端
 
 + [Django](https://www.djangoproject.com/)
@@ -17,7 +15,7 @@
 
 + git commit 规范：[阮一峰-Commit message 和 Change log 编写指南](http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html)
     <br>**建议遵循**
-git flow 参考：[深入理解学习Git工作流](https://segmentfault.com/a/1190000002918123)，[Git Flow简介](https://segmentfault.com/a/1190000006194051)
++ git flow 参考：[深入理解学习Git工作流](https://segmentfault.com/a/1190000002918123)，[Git Flow简介](https://segmentfault.com/a/1190000006194051)
     <br>上面的作为指南，我们开发时不全部照着来。我们使用的的[简化版工作流](#team-git-flow)
 
 ### <a href="#team-git-flow">简化版工作流</a>
