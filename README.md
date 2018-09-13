@@ -16,9 +16,9 @@
 + git commit 规范：[阮一峰-Commit message 和 Change log 编写指南](http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html)
     <br>**建议遵循**
 + git flow 参考：[深入理解学习Git工作流](https://segmentfault.com/a/1190000002918123)，[Git Flow简介](https://segmentfault.com/a/1190000006194051)
-    <br>上面的作为指南，我们开发时不全部照着来。我们使用的的[简化版工作流](#team-git-flow)
+    <br>上面的作为指南，我们开发时不全部照着来。我们使用的的[简化版工作流](#简化版工作流)
 
-### <a href="#team-git-flow">简化版工作流</a>
+### 简化版工作流
 
 首先新建一个 Issues，列出待开发的 feature。
 
