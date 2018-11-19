@@ -42,7 +42,7 @@ params
 
 所有的标签
 
-### cateogries[/:id]
+### categorise[/:id]
 
 所有分类
 
