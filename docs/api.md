@@ -42,9 +42,13 @@ params
 
 所有的标签
 
-### categorise[/:id]
+### categorise
+
+GET:
 
 所有分类
+
+POST:
 
 对于某一特定分类下的子分类通过 URL 附加一个`id`即可。
 
