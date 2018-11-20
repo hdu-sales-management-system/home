@@ -97,7 +97,9 @@ request:
 
 更新一个礼品信息
 
-DELETE 从购物车中删除一个礼品
+DELETE 
+
+从购物车中删除一个礼品
 
 ### /users/:user_id/orders
 
