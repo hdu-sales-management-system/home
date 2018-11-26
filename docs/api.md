@@ -99,7 +99,7 @@ request:
 
 DELETE 
 
-从购物车中删除一个礼品
+从购物车中删除一个礼品**
 
 ### /users/:user_id/orders
 
