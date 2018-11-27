@@ -10,14 +10,40 @@ request:
 
 ```js
 {
-  username: [string],
+  name: [string],
   password: [string], // 加密过后的字符串
 }
 ```
 
 response:
+````json
+//if login sucessed
+{
+    "log_status": 1,
+    "user": [
+        {
+            "model": "shopping.user",
+            "pk": 1,
+            "fields": {
+                "name": "b",
+                "password": "b",
+                "address": "b",
+                "birthday": "2000-01-01T00:00:00Z",
+                "nickname": "b",
+                "gender": 1,
+                "phone": "122"
+            }
+        }
+    ]
+}
+//else
+{
+    "log_status": 0
+}
 
-返回 cookie
+````
+
+[ 返回 cookie ]
 
 ```js
 {
@@ -99,7 +125,7 @@ request:
 
 DELETE 
 
-从购物车中删除一个礼品**
+从购物车中删除一个礼品
 
 ### /users/:user_id/orders
 
