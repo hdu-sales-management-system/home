@@ -183,7 +183,7 @@ params
 | --- | --- | --- |
 | count | int | 返回的数量，默认 10 条 |
 | offset| int | 偏移量 |
-| q | string | 关键字
+| q | string | 关键字 |
 
 ## 经销商
 
@@ -207,7 +207,7 @@ params
 
 | name | type | comment |
 | --- | --- | --- |
-| category | array \| string | 礼物所属的分类
+| category | array \| string | 礼物所属的分类 |
 
 ### /purchase
 
@@ -238,9 +238,29 @@ response:
 
 ## 总公司
 
-登录
++ /login
+  + POST
++ /logout
+  + POST
++ /运营人员/presents
+  + POST
+  + DELETE
+  + PUT
+<!-- + /add
+  + POST
++ /delete
+  + DELETE
++ /modify
+  + PUT -->
++ /厂库管理员/presents
+  + GET
+  + PUT
+  + GET
+<!-- + /sell -->
 
 ### /login
+
+登录
 
 #### POST
 
@@ -281,8 +301,9 @@ response:
 ]
 ```
 
-登出
 ### /logout
+
+登出
 
 request:
 
