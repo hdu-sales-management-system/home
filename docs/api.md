@@ -16,6 +16,7 @@ request:
 ```
 
 response:
+
 ````json
 //if login sucessed
 {
@@ -32,14 +33,11 @@ response:
 
 [ 返回 cookie ]
 
-```js
-{
-  state: 'success'|'failed',
-  message: [string],
-}
-```
+
 ### /user/[:user_id]
+
 request:
+
 none
 
 response:
@@ -68,29 +66,34 @@ response:
     "error": 1
 }
 ````
+
 ### /gifts
 
 GET
 
 params
 
-+ count 返回的数量，默认 10 条
-+ offset 偏移量
-+ tags[] 礼物所有的标签
-+ categories[] 礼物所属的分类
-+ filter 过滤器（待定）
+| name | comment |
+| --- | --- |
+| count | 返回的数量，默认 10 条 |
+| offset | 偏移量 |
+| tags[] | 礼物所有的标签 |
+| categories[] | 礼物所属的分类 |
+| filter | 过滤器（待定）|
 
 ### /tags
 
 所有的标签
 
-### categorise
+### /categorise
 
 GET:
 
 所有分类
 
 POST:
+
+### /categorise/:id
 
 对于某一特定分类下的子分类通过 URL 附加一个`id`即可。
 
@@ -131,7 +134,8 @@ request:
 
 ```js
 {
-  // 礼品对象
+  id: [number],
+  count: [number]
 }
 ```
 
@@ -139,7 +143,7 @@ request:
 
 更新一个礼品信息
 
-DELETE 
+### DELETE
 
 从购物车中删除一个礼品
 
@@ -147,7 +151,9 @@ DELETE
 
 #### GET
 
-所有订单
+获取所有订单
+
+这里先不做分页
 
 ### /buy/:order_id
 
@@ -160,11 +166,11 @@ DELETE
 }
 ```
 
-### /actives
+<!-- ### /actives
 
 #### GET
 
-活动
+活动 -->
 
 ### /search
 
@@ -173,10 +179,11 @@ DELETE
 request
 
 params
-
-+ count 返回的数量，默认 10 条
-+ offset 偏移量，默认 10 条
-+ q type: string 关键字
+| name | type | comment |
+| --- | --- | --- |
+| count | int | 返回的数量，默认 10 条 |
+| offset| int | 偏移量 |
+| q | string | 关键字
 
 ## 经销商
 
@@ -192,18 +199,15 @@ params
 
 #### GET
 
-返回总公司已有的礼品，可以根据礼品状态，分类返回数据
+返回总公司已有的礼品，可以根据分类返回数据
 
 request
 
 params
 
-+ status 商品状态
-+ category 礼物所属的分类
-
-#### DELETE
-
-删除
+| name | type | comment |
+| --- | --- | --- |
+| category | array \| string | 礼物所属的分类
 
 ### /purchase
 
@@ -237,13 +241,15 @@ response:
 登录
 
 ### /login
+
 #### POST
 
 request:
+
 ```js
 {
-  name:[string],
-  password:[string],
+  name: [string],
+  password: [string],
 }
 ```
 
@@ -251,52 +257,58 @@ response:
 
 ```js
 [
-  //if login sucessed
-  {
-    "log_status": 1,
-    "employee": [
-        {
-            "model": "warehouse.employee",
-            "pk": 2,
-            "fields": {
-                "empname": "小七",
-                "emppassword": "123",
-                "emporder": 1,
-                "empposit": "普通员工",
-                "empphone": "110"
+    //if login sucessed
+    {
+        "log_status": 1,
+        "employee": [
+            {
+                "model": "warehouse.employee",
+                "pk": 2,
+                "fields": {
+                    "empname": "小七",
+                    "emppassword": "123",
+                    "emporder": 1,
+                    "empposit": "普通员工",
+                    "empphone": "110"
+                }
             }
-        }
-    ]
-}
-  //else
-  {
-    'log_status': 0,
-  }
+        ]
+    }
+    //else
+    {
+        'log_status': 0,
+    }
 ]
 ```
 
 登出
 ### /logout
 
-request:none
+request:
+
+none
+
 response:
+
 ```js
-[
-  //if login sucessed
-  {
+//if login sucessed
+{
     "IS_LOGOUT": 1
-  }
-  //else
-  {
+}
+//else
+{
     "IS_LOGOUT": 0
-  }
-]
+}
 ```
 
-添加礼品
 ### /add
+
+添加礼品
+
 #### POST
+
 request:
+
 ```js
 {
   name:[string], //礼品名称
@@ -307,11 +319,13 @@ request:
   url:[string], //礼品图片
 }
 ```
+
 response:
+
 ```js
 [
-  //if success
-  {
+    //if success
+    {
         "model": "warehouse.present",
         "pk": 17,
         "fields": {
@@ -328,29 +342,25 @@ response:
             "pdepot": 2
         }
     }
-    else:
+    //else:
     {
     "error": 1
     }
 ]
 ```
 
-删除礼品
 ### /delete
-#### PUT
 
-request:
+删除礼品
 
-```js
-{
-  id: [number], // 礼品 ID
-}
-```
+#### DELETE
+
 response:
+
 ```js
 [
-  //if success
-  {
+    //if success
+    {
         "model": "warehouse.present",
         "pk": 15,
         "fields": {
@@ -378,10 +388,10 @@ response:
 ]
 ```
 
-
 更新礼品信息（仓库管理员）
 
 ### /modify
+
 #### PUT
 
 request:
@@ -397,7 +407,9 @@ request:
   url:[string], //礼品图片
 }
 ```
+
 response:
+
 ```js
 [
     //if success
@@ -429,12 +441,18 @@ response:
 ]
 ```
 
+### /gifts
 
 返回礼品
-### /gifts
+
 #### GET
-request:none
+
+request:
+
+none
+
 response:
+
 ```js
 [
     //if employee.emporder == 2
@@ -524,7 +542,7 @@ response:
             "pdepot": 2
         }
     },
-    ...
+    // ...
     //else
     {
     "error": 1
@@ -532,10 +550,14 @@ response:
 ]
 ```
 
-对礼品数据的修改,以及对礼品的查询（普通员工）
 ### /sell
+
+对礼品数据的修改,以及对礼品的查询（普通员工）
+
 #### PUT
+
 request:
+
 ```js
 {
   id:[int], //礼品ID
@@ -545,7 +567,9 @@ request:
   off_cost:[float], //打折程度，数据应为长度3的小数，个位为0
 }
 ```
+
 response:
+
 ```js
 [
     //if success
@@ -576,15 +600,20 @@ response:
     }
 ]
 ```
+
 #### GET
+
 request:
+
 ```js
 {
   depot_id:[int], //仓库ID
   present_status:[int], //礼品状态
 }
 ```
+
 response:
+
 ```js
 [
     //if depot_id==2
@@ -680,7 +709,3 @@ response:
     }
 ]
 ```
-
-
-
-
