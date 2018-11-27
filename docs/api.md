@@ -20,6 +20,31 @@ response:
 //if login sucessed
 {
     "log_status": 1,
+}
+//else
+{
+    "log_status": 0
+}
+
+````
+
+[ 返回 cookie ]
+
+```js
+{
+  state: 'success'|'failed',
+  message: [string],
+}
+```
+### /user/[:user_id]
+request:
+none
+
+response:
+````json
+//if succeed 
+{
+    "error": 0,
     "user": [
         {
             "model": "shopping.user",
@@ -38,20 +63,9 @@ response:
 }
 //else
 {
-    "log_status": 0
+    "error": 1
 }
-
 ````
-
-[ 返回 cookie ]
-
-```js
-{
-  state: 'success'|'failed',
-  message: [string],
-}
-```
-
 ### /gifts
 
 GET
