@@ -234,29 +234,109 @@ response:
 
 ## 总公司
 
-前缀: `/admin`
+登录
 
-### /gifts
+### /login
+#### POST
 
-#### GET
-
-礼品列表
+request:
+```js
+{
+  name:[string],
+  password:[string],
+}
+```
 
 response:
 
 ```js
 [
+  //if login sucessed
   {
-    // 礼品信息
-  }，
-  // ...
+    "log_status": 1,
+    "employee": [
+        {
+            "model": "warehouse.employee",
+            "pk": 2,
+            "fields": {
+                "empname": "小七",
+                "emppassword": "123",
+                "emporder": 1,
+                "empposit": "普通员工",
+                "empphone": "110"
+            }
+        }
+    ]
+}
+  //else
+  {
+    'log_status': 0,
+  }
 ]
 ```
 
+登出
+### /logout
+
+request:none
+response:
+```js
+[
+  //if login sucessed
+  {
+    "IS_LOGOUT": 1
+  }
+  //else
+  {
+    "IS_LOGOUT": 0
+  }
+]
+```
+
+添加礼品
+### /add
 #### POST
+request:
+```js
+{
+  name:[string], //礼品名称
+  introduction:[string], //礼品简介
+  on_date:[date], //上架时间
+  store_num:[int], //库存数量
+  cost:[float], //礼品价格
+  url:[string], //礼品图片
+}
+```
+response:
+```js
+[
+  //if success
+  {
+        "model": "warehouse.present",
+        "pk": 17,
+        "fields": {
+            "name": "礼品1",
+            "introduction": "厉害",
+            "on_date": "2018-11-25T16:00:00Z",
+            "store_num": 20,
+            "status": 0,
+            "cost": "20.00",
+            "hot": 0,
+            "off": 0,
+            "off_cost": "0.00",
+            "url": "",
+            "pdepot": 2
+        }
+    }
+    else:
+    {
+    "error": 1
+    }
+]
+```
 
-新建礼品
-
+删除礼品
+### /delete
 #### PUT
 
 request:
@@ -264,86 +344,343 @@ request:
 ```js
 {
   id: [number], // 礼品 ID
-  // 其他的礼品属性
 }
 ```
-
-更新礼品信息
-
-### /actives
-
-POST 创建活动
-
-request:
-
-```js
-{
-  // 活动信息
-}
-```
-
-## 仓库
-
-前缀:`/depot`
-
-### /:id
-
-指定仓库的信息
-
 response:
-
-```js
-{
-  // 仓库信息
-}
-```
-
-### /gifts
-
-#### GET
-
-仓库拥有的礼品
-
-request
-
-params
-
-+ count 返回的数量，默认 10 条
-+ offset 偏移量，默认 10 条
-
 ```js
 [
+  //if success
   {
-    // 礼品对象
-  }，
-  // ...
+        "model": "warehouse.present",
+        "pk": 15,
+        "fields": {
+            "name": "礼品1",
+            "introduction": "厉害",
+            "on_date": "2018-11-25T16:00:00Z",
+            "store_num": 20,
+            "status": 0,
+            "cost": "20.00",
+            "hot": 0,
+            "off": 1,
+            "off_cost": "0.21",
+            "url": "",
+            "pdepot": 2
+        }
+    }
+    //else if login problem
+    {
+    "error": 1
+    }
+    //if id problem
+    {
+    "error": 2
+    }
 ]
 ```
 
-#### POST
 
-仓库进货
+更新礼品信息（仓库管理员）
 
-request:
-
-```js
-{
-  // 礼品信息
-}
-```
-
+### /modify
 #### PUT
 
 request:
 
 ```js
 {
-  id: [number], // 仓库礼品 ID
-  count: [number], // 礼品的库存量
-  // 其他的礼品属性
+  id:[int], //礼品ID
+  name:[string], //礼品名称
+  introduction:[string], //礼品简介
+  on_date:[date], //上架时间
+  store_num:[int], //库存数量
+  cost:[float], //礼品价格
+  url:[string], //礼品图片
 }
 ```
+response:
+```js
+[
+    //if success
+    {
+        "model": "warehouse.present",
+        "pk": 14,
+        "fields": {
+            "name": "商业礼品4",
+            "introduction": "",
+            "on_date": "2018-11-26T16:00:00Z",
+            "store_num": 30,
+            "status": 0,
+            "cost": "30.00",
+            "hot": 0,
+            "off": 1,
+            "off_cost": "0.21",
+            "url": "123",
+            "pdepot": 2
+        }
+    }
+    //else if login problem
+    {
+    "error": 1
+    }
+    //if id problem
+    {
+    "error": 2
+    }
+]
+```
 
-#### DELETE
 
-删除礼品
+返回礼品
+### /gifts
+#### GET
+request:none
+response:
+```js
+[
+    //if employee.emporder == 2
+    {
+        "model": "warehouse.present",
+        "pk": 14,
+        "fields": {
+            "name": "商业礼品4",
+            "introduction": "",
+            "on_date": "2018-11-26T16:00:00Z",
+            "store_num": 30,
+            "status": 0,
+            "cost": "30.00",
+            "hot": 0,
+            "off": 1,
+            "off_cost": "0.21",
+            "url": "123",
+            "pdepot": 2
+        }
+    },
+    {
+        "model": "warehouse.present",
+        "pk": 16,
+        "fields": {
+            "name": "礼品1",
+            "introduction": "厉害",
+            "on_date": "2018-11-25T16:00:00Z",
+            "store_num": 20,
+            "status": 0,
+            "cost": "20.00",
+            "hot": 0,
+            "off": 1,
+            "off_cost": "0.21",
+            "url": "",
+            "pdepot": 2
+        }
+    },
+    {
+        "model": "warehouse.present",
+        "pk": 17,
+        "fields": {
+            "name": "礼品1",
+            "introduction": "厉害",
+            "on_date": "2018-11-25T16:00:00Z",
+            "store_num": 20,
+            "status": 0,
+            "cost": "20.00",
+            "hot": 0,
+            "off": 0,
+            "off_cost": "0.00",
+            "url": "",
+            "pdepot": 2
+        }
+    }
+    //if employee.emporder == 1
+    {
+        "model": "warehouse.present",
+        "pk": 1,
+        "fields": {
+            "name": "商务礼品1",
+            "introduction": "很棒",
+            "on_date": "2018-11-26T00:00:00Z",
+            "store_num": 20,
+            "status": 2,
+            "cost": "20.00",
+            "hot": 0,
+            "off": 0,
+            "off_cost": "0.00",
+            "url": null,
+            "pdepot": 1
+        }
+    },
+    {
+        "model": "warehouse.present",
+        "pk": 14,
+        "fields": {
+            "name": "商业礼品4",
+            "introduction": "",
+            "on_date": "2018-11-26T16:00:00Z",
+            "store_num": 30,
+            "status": 0,
+            "cost": "30.00",
+            "hot": 0,
+            "off": 1,
+            "off_cost": "0.21",
+            "url": "123",
+            "pdepot": 2
+        }
+    },
+    ...
+    //else
+    {
+    "error": 1
+    }
+]
+```
+
+对礼品数据的修改,以及对礼品的查询（普通员工）
+### /sell
+#### PUT
+request:
+```js
+{
+  id:[int], //礼品ID
+  status:[int], //礼品状态（0：审核，1：上架，2：未上架）
+  hot:[int], //礼品热度
+  off:[int], //是否打折（0：否，1：是）
+  off_cost:[float], //打折程度，数据应为长度3的小数，个位为0
+}
+```
+response:
+```js
+[
+    //if success
+    {
+        "model": "warehouse.present",
+        "pk": 1,
+        "fields": {
+            "name": "商务礼品1",
+            "introduction": "很棒",
+            "on_date": "2018-11-26T00:00:00Z",
+            "store_num": 20,
+            "status": 1,
+            "cost": "20.00",
+            "hot": 90,
+            "off": 0,
+            "off_cost": "0.00",
+            "url": null,
+            "pdepot": 1
+        }
+    }
+    //else if login problem
+    {
+    "error": 1
+    }
+    //if id problem
+    {
+    "error": 2
+    }
+]
+```
+#### GET
+request:
+```js
+{
+  depot_id:[int], //仓库ID
+  present_status:[int], //礼品状态
+}
+```
+response:
+```js
+[
+    //if depot_id==2
+    {
+        "model": "warehouse.present",
+        "pk": 14,
+        "fields": {
+            "name": "商业礼品4",
+            "introduction": "",
+            "on_date": "2018-11-26T16:00:00Z",
+            "store_num": 30,
+            "status": 0,
+            "cost": "30.00",
+            "hot": 0,
+            "off": 1,
+            "off_cost": "0.21",
+            "url": "123",
+            "pdepot": 2
+        }
+    },
+    {
+        "model": "warehouse.present",
+        "pk": 16,
+        "fields": {
+            "name": "礼品1",
+            "introduction": "厉害",
+            "on_date": "2018-11-25T16:00:00Z",
+            "store_num": 20,
+            "status": 0,
+            "cost": "20.00",
+            "hot": 0,
+            "off": 1,
+            "off_cost": "0.21",
+            "url": "",
+            "pdepot": 2
+        }
+    },
+    {
+        "model": "warehouse.present",
+        "pk": 17,
+        "fields": {
+            "name": "礼品1",
+            "introduction": "厉害",
+            "on_date": "2018-11-25T16:00:00Z",
+            "store_num": 20,
+            "status": 0,
+            "cost": "20.00",
+            "hot": 0,
+            "off": 0,
+            "off_cost": "0.00",
+            "url": "",
+            "pdepot": 2
+        }
+    }
+    //if present_status==1
+    {
+        "model": "warehouse.present",
+        "pk": 16,
+        "fields": {
+            "name": "礼品1",
+            "introduction": "厉害",
+            "on_date": "2018-11-25T16:00:00Z",
+            "store_num": 20,
+            "status": 2,
+            "cost": "20.00",
+            "hot": 0,
+            "off": 1,
+            "off_cost": "0.21",
+            "url": "",
+            "pdepot": 2
+        }
+    },
+    {
+        "model": "warehouse.present",
+        "pk": 17,
+        "fields": {
+            "name": "礼品1",
+            "introduction": "厉害",
+            "on_date": "2018-11-25T16:00:00Z",
+            "store_num": 20,
+            "status": 2,
+            "cost": "20.00",
+            "hot": 0,
+            "off": 0,
+            "off_cost": "0.00",
+            "url": "",
+            "pdepot": 2
+        }
+    }
+    //else
+    {
+    "error": 1
+    }
+]
+```
+
+
+
+
