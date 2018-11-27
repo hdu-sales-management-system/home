@@ -20,10 +20,12 @@ response:
 //if login sucessed
 {
     "log_status": 1,
+    "user_id": 1
 }
 //else
 {
-    "log_status": 0
+    "log_status": 0,
+    "user_id": -1
 }
 
 ````
