@@ -558,11 +558,12 @@ none
 #####request
 
 params
+
 | name | type | comment |
 | --- | --- | --- |
 | count | int | 返回的数量，默认 10 条 |
 | offset| int | 偏移量 |
-| q | string | 关键字
+| q | string | 关键字 |
 
 #####response
 ```json
@@ -622,7 +623,7 @@ params
 
 | name | type | comment |
 | --- | --- | --- |
-| category | array \| string | 礼物所属的分类
+| category | array \| string | 礼物所属的分类 |
 
 ### /purchase
 
@@ -653,9 +654,29 @@ response:
 
 ## 总公司
 
-登录
++ /login
+  + POST
++ /logout
+  + POST
++ /运营人员/presents
+  + POST
+  + DELETE
+  + PUT
+<!-- + /add
+  + POST
++ /delete
+  + DELETE
++ /modify
+  + PUT -->
++ /厂库管理员/presents
+  + GET
+  + PUT
+  + GET
+<!-- + /sell -->
 
 ### /login
+
+登录
 
 #### POST
 
@@ -671,33 +692,32 @@ request:
 response:
 
 ```js
-[
-    //if login sucessed
-    {
-        "log_status": 1,
-        "employee": [
-            {
-                "model": "warehouse.employee",
-                "pk": 2,
-                "fields": {
-                    "empname": "小七",
-                    "emppassword": "123",
-                    "emporder": 1,
-                    "empposit": "普通员工",
-                    "empphone": "110"
-                }
+//if login sucessed
+{
+    "log_status": 1,
+    "employee": [
+        {
+            "model": "warehouse.employee",
+            "pk": 2,
+            "fields": {
+                "empname": "小七",
+                "emppassword": "123",
+                "emporder": 1,
+                "empposit": "普通员工",
+                "empphone": "110"
             }
-        ]
-    }
-    //else
-    {
-        'log_status': 0,
-    }
-]
+        }
+    ]
+}
+//else
+{
+    'log_status': 0,
+}
 ```
 
-登出
 ### /logout
+
+登出
 
 request:
 
@@ -757,11 +777,11 @@ response:
             "pdepot": 2
         }
     }
-    //else:
+]
+  //else:
     {
     "error": 1
     }
-]
 ```
 
 ### /delete
@@ -791,8 +811,9 @@ response:
             "url": "",
             "pdepot": 2
         }
-    }
-    //else if login problem
+    }  
+]
+//else if login problem
     {
     "error": 1
     }
@@ -800,7 +821,6 @@ response:
     {
     "error": 2
     }
-]
 ```
 
 更新礼品信息（仓库管理员）
@@ -845,7 +865,8 @@ response:
             "pdepot": 2
         }
     }
-    //else if login problem
+]
+  //else if login problem
     {
     "error": 1
     }
@@ -853,7 +874,6 @@ response:
     {
     "error": 2
     }
-]
 ```
 
 ### /gifts
@@ -957,12 +977,12 @@ response:
             "pdepot": 2
         }
     },
-    // ...
-    //else
+    // ... 
+]
+//else
     {
     "error": 1
     }
-]
 ```
 
 ### /sell
@@ -1004,8 +1024,9 @@ response:
             "url": null,
             "pdepot": 1
         }
-    }
-    //else if login problem
+    } 
+]
+//else if login problem
     {
     "error": 1
     }
@@ -1013,7 +1034,6 @@ response:
     {
     "error": 2
     }
-]
 ```
 
 #### GET
@@ -1118,9 +1138,9 @@ response:
             "pdepot": 2
         }
     }
-    //else
+]
+//else
     {
     "error": 1
     }
-]
 ```
