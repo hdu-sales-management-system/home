@@ -4,18 +4,20 @@
 
 ### /login
 
-POST
+#### POST
 
-request:
+用于用户登陆
+
+##### request:
 
 ```js
 {
   name: [string],
-  password: [string], // 加密过后的字符串
+  password: [string] 
 }
 ```
 
-response:
+#####response:
 
 ````json
 //if login sucessed
@@ -31,12 +33,64 @@ response:
 
 ````
 
-[ 返回 cookie ]
+### /logout
 
+#### GET
 
-### /user/[:user_id]
+##### request:
 
-request:
+none
+
+##### response:
+
+```json
+//if logout succeed
+{
+    "IS_LOGOUT": 1
+}
+//else
+{
+    "IS_LOGOUT": 0
+}
+
+```
+
+### /register
+
+#### POST
+
+##### request
+
+```js
+{
+  name: [string],
+  password: [string], 
+  address:[string],
+  birthday:[Date],
+  nickname:[string],
+  gender:[Integer],
+  phone:[string]
+}
+```
+
+##### response
+
+```json
+//if register succeed
+{
+    "re_true": 1
+}
+//else
+{
+    "re_true": 0
+}
+
+```
+
+### /user/:user_id
+#### GET
+
+##### request:
 
 none
 
@@ -70,9 +124,9 @@ response:
 
 ### /gifts
 
-GET
+#### GET
 
-params
+##### params
 
 | name | comment |
 | --- | --- |
@@ -82,34 +136,155 @@ params
 | categories[] | 礼物所属的分类 |
 | filter | 过滤器（待定）|
 
+##### response
+
+```json
+[
+    {
+        "model": "shopping.present",
+        "pk": 1,
+        "fields": {
+            "name": "s",
+            "on_date": "2018-01-01T00:00:00Z",
+            "store_num": 10,
+            "status": 1,
+            "cost": "10.00",
+            "hot": 0,
+            "off": 0,
+            "off_cost": "0.00",
+            "url": null
+        }
+    },
+    {
+        "model": "shopping.present",
+        "pk": 2,
+        "fields": {
+            "name": "ss",
+            "on_date": "2018-02-01T00:00:00Z",
+            "store_num": 1,
+            "status": 0,
+            "cost": "10.00",
+            "hot": 0,
+            "off": 0,
+            "off_cost": "0.00",
+            "url": null
+        }
+    }
+]
+```
+
 ### /tags
+
+#### GET
 
 所有的标签
 
+##### response
+
+```json
+[
+    {
+        "model": "shopping.tag",
+        "pk": 1,
+        "fields": {
+            "name": "分类1",
+            "hot": 0
+        }
+    },
+    {
+        "model": "shopping.tag",
+        "pk": 2,
+        "fields": {
+            "name": "分类2",
+            "hot": 0
+        }
+    }
+]
+```
+
 ### /categorise
 
-GET:
+#### GET
 
 所有分类
 
-POST:
+##### response
 
-### /categorise/:id
+```json
+[
+    {
+        "model": "shopping.category",
+        "pk": 1,
+        "fields": {
+            "name": "1",
+            "hot": 0,
+            "categoryP": null
+        }
+    },
+    {
+        "model": "shopping.category",
+        "pk": 2,
+        "fields": {
+            "name": "2",
+            "hot": 0,
+            "categoryP": 1
+        }
+    },
+    {
+        "model": "shopping.category",
+        "pk": 3,
+        "fields": {
+            "name": "3",
+            "hot": 0,
+            "categoryP": 1
+        }
+    }
+]
+```
+#### POST:
 
-对于某一特定分类下的子分类通过 URL 附加一个`id`即可。
+##### request
+
+```js
+{
+    id:[Integer]
+}
+```
+
+##### response
+
+```json
+[
+    {
+        "model": "shopping.category",
+        "pk": 1,
+        "fields": {
+            "name": "1",
+            "hot": 0,
+            "categoryP": null
+        }
+    }
+```
 
 ### /carousel
 
 首页轮播图
 
-```js
+#### GET
+
+##### response
+
+```json
 [
-  {
-    url: [string],
-    title: [string],
-    index: [number],
-  },
-  // ...
+    {
+        "model": "shopping.crousel",
+        "pk": 1,
+        "fields": {
+            "url": "www.ddd",
+            "title": "title1",
+            "index": 111
+        }
+    }
 ]
 ```
 
@@ -121,22 +296,88 @@ POST:
 
 返回一个礼品的所有必要信息，具体信息根据实际情况确定。
 
-### /user/:user_id/cart[/:gift_id]
+##### response
+
+```json
+//if succeed
+{
+    "gift_status": 1,
+    "gift": [
+        {
+            "model": "shopping.present",
+            "pk": 1,
+            "fields": {
+                "name": "s",
+                "on_date": "2018-01-01T00:00:00Z",
+                "store_num": 10,
+                "status": 1,
+                "cost": "10.00",
+                "hot": 0,
+                "off": 0,
+                "off_cost": "0.00",
+                "url": null
+            }
+        }
+    ]
+}
+//else
+{
+    "gift_status": 0
+}
+```
+
+### /user/:user_id/car
 
 #### GET
 
 购物车
 
+##### response
+
+```json
+//if succeed
+{
+    "error": 0,
+    "car": [
+        {
+            "url": null,
+            "present_id": 1,
+            "off_cost": 0,
+            "store_num": 10,
+            "status": 1,
+            "on_date": "2018-01-01 00:00:00",
+            "cost": 10,
+            "hot": 0,
+            "number": 1,//这个就是数量
+            "name": "s",
+            "off": 0
+        }
+    ]
+}
+//else
+{
+    "error": 1
+}
+```
 #### POST
 
 添加一个礼品到购物车
 
-request:
+##### request:
 
 ```js
 {
-  id: [number],
-  count: [number]
+  present_id: [number],
+  number: [number]
+}
+```
+
+##### response
+
+```json
+//if succeed(也只有成功一种可能)
+{
+    "error": 0
 }
 ```
 
@@ -144,11 +385,49 @@ request:
 
 更新一个礼品信息
 
-### DELETE
+##### request
+
+```js
+{
+  present_id: [number],
+  number: [number]
+}
+```
+
+##### response
+
+```json
+{
+    "error": 0
+}
+```
+
+#### DELETE
 
 从购物车中删除一个礼品
 
-### /users/:user_id/orders
+##### request
+
+```js
+{
+  present_id: [number]
+}
+```
+
+##### response
+
+```json
+//if succeed
+{
+    "error": 2
+}
+//else
+{
+    "error": 3
+}
+```
+
+### /user/:user_id/orders
 
 #### GET
 
@@ -156,14 +435,138 @@ request:
 
 这里先不做分页
 
-### /buy/:order_id
+##### response
+
+```json
+{
+    "error": 0,
+    "car": [
+        {
+            "model": "shopping.order",
+            "pk": 1,
+            "fields": {
+                "status": "创建成功",
+                "receive_mark": 0,
+                "user": 1,
+                "logistics": "aaaaa",
+                "begin_date": "2018-02-01T00:00:00Z",
+                "sum_money": "40.00",
+                "user_feedback": "null",
+                "type": 0
+            }
+        },
+        {
+            "model": "shopping.order",
+            "pk": 2,
+            "fields": {
+                "status": "操作成功",
+                "receive_mark": 0,
+                "user": 1,
+                "logistics": "null",
+                "begin_date": "2018-11-27T14:01:52.167Z",
+                "sum_money": "30.00",
+                "user_feedback": "null",
+                "type": 0
+            }
+        },
+        {
+            "model": "shopping.order",
+            "pk": 3,
+            "fields": {
+                "status": "操作成功",
+                "receive_mark": 0,
+                "user": 1,
+                "logistics": "null",
+                "begin_date": "2018-11-27T14:03:01.375Z",
+                "sum_money": "50.00",
+                "user_feedback": "null",
+                "type": 0
+            }
+        },
+        {
+            "model": "shopping.order",
+            "pk": 4,
+            "fields": {
+                "status": "操作成功",
+                "receive_mark": 0,
+                "user": 1,
+                "logistics": "null",
+                "begin_date": "2018-11-27T14:04:56.621Z",
+                "sum_money": "50.00",
+                "user_feedback": "null",
+                "type": 0
+            }
+        }
+    ]
+}
+```
+
+### /user/:user_id/order/:order_id
+
+获取某个特定的订单
+
+#### GET
+
+#### response
+
+```json
+//if succeed
+{
+    "error": 0,
+    "car": [
+        {
+            "model": "shopping.oru",
+            "pk": 2,
+            "fields": {
+                "count": 2,
+                "price": "20.00",
+                "order": 1,
+                "present": 1
+            }
+        },
+        {
+            "model": "shopping.oru",
+            "pk": 3,
+            "fields": {
+                "count": 2,
+                "price": "20.00",
+                "order": 1,
+                "present": 2
+            }
+        }
+    ]
+}
+//else
+{
+    "error": 1
+}
+```
+
+### /buy
 
 这里通过`id`和`session`后端完成购买过程，返回购买结果。有鉴权动作。
+#### POST
 
-```js
+##### request
+
+```json
 {
-  state: 'success'|'failed',
-  message: [string],
+  number:[list],
+  present:[list]
+}
+
+```
+
+##### response
+
+```json
+//if succeed
+{
+    "error": 0
+}
+//else
+{
+    "error": 1
 }
 ```
 
@@ -177,7 +580,9 @@ request:
 
 搜索
 
-request
+#### GET
+
+##### request
 
 params
 
@@ -186,6 +591,43 @@ params
 | count | int | 返回的数量，默认 10 条 |
 | offset| int | 偏移量 |
 | q | string | 关键字 |
+
+##### response
+
+```json
+[
+    {
+        "model": "shopping.present",
+        "pk": 1,
+        "fields": {
+            "name": "s",
+            "on_date": "2018-01-01T00:00:00Z",
+            "store_num": 10,
+            "status": 1,
+            "cost": "10.00",
+            "hot": 0,
+            "off": 0,
+            "off_cost": "0.00",
+            "url": null
+        }
+    },
+    {
+        "model": "shopping.present",
+        "pk": 2,
+        "fields": {
+            "name": "ss",
+            "on_date": "2018-02-01T00:00:00Z",
+            "store_num": 1,
+            "status": 0,
+            "cost": "10.00",
+            "hot": 0,
+            "off": 0,
+            "off_cost": "0.00",
+            "url": null
+        }
+    }
+]
+```
 
 ## 经销商
 
@@ -203,7 +645,7 @@ params
 
 返回总公司已有的礼品，可以根据分类返回数据
 
-request
+##### request
 
 params
 
