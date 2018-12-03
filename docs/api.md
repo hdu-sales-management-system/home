@@ -41,8 +41,9 @@ request:
 none
 
 response:
+
 ````json
-//if succeed 
+//if succeed
 {
     "error": 0,
     "user": [
